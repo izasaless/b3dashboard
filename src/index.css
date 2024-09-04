@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.active {
+    background-color: #1e40af; /* Cor de fundo ativa */
+    color: #ffffff; /* Cor do texto ativa */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ativa */
+  }
+
+  body {
+    background-color: #f0f4f8; /* Escolha a cor ou imagem de fundo que preferir */
+    margin: 0;
+    padding: 0;
+}
+
+  
