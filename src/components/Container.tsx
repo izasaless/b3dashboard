@@ -7,9 +7,9 @@ const Container: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-[1600px] h-[500px]">
                 {/* Blocos de cima */}
                 <div className="bg-white shadow-lg rounded-[40px] p-4 h-[220px] relative">
-                    <h2 className="text-xl font-semibold mb-2">31</h2>
-                    <p>Usuários</p>
-                    <p>Total de usuários cadastrados</p>
+                    <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">31</h2>
+                    <p className="font-bold">Usuários</p>
+                    <p className="">Total de usuários cadastrados</p>
                     <img 
                         src="/dashboardimg1.svg" 
                         alt="Dashboard Image 1" 
@@ -17,9 +17,9 @@ const Container: React.FC = () => {
                     />
                 </div>
                 <div className="bg-white shadow-lg rounded-[40px] p-4 h-[220px] relative">
-                    <h2 className="text-xl font-semibold mb-2">22</h2>
-                    <p>Clientes</p>
-                    <p>Total de clientes cadastrados</p>
+                    <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">22</h2>
+                    <p className="font-bold">Clientes</p>
+                    <p className="">Total de clientes cadastrados</p>
                     <img 
                         src="/dashboardimg2.svg" 
                         alt="Dashboard Image 2" 
@@ -27,9 +27,9 @@ const Container: React.FC = () => {
                     />
                 </div>
                 <div className="bg-white shadow-lg rounded-[40px] p-4 h-[220px] relative">
-                    <h2 className="text-xl font-semibold mb-2">7</h2>
-                    <p>Cargos</p>
-                    <p>Total de cargos cadastrados</p>
+                    <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">7</h2>
+                    <p className="font-bold">Cargos</p>
+                    <p className="">Total de cargos cadastrados</p>
                     <img 
                         src="/dashboardimg2.svg" 
                         alt="Dashboard Image 3" 
@@ -37,9 +37,9 @@ const Container: React.FC = () => {
                     />
                 </div>
                 <div className="bg-white shadow-lg rounded-[40px] p-4 h-[220px] relative">
-                    <h2 className="text-xl font-semibold mb-2">9</h2>
-                    <p>Funcionários</p>
-                    <p>Total de funcionários cadastrados</p>
+                    <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">9</h2>
+                    <p className="font-bold">Funcionários</p>
+                    <p className="">Total de funcionários cadastrados</p>
                     <img 
                         src="/dashboardimg3.svg" 
                         alt="Dashboard Image 4" 
@@ -50,9 +50,9 @@ const Container: React.FC = () => {
                 {/* Blocos de baixo */}
                 <div className="col-span-4 flex gap-8">
                     <div className="bg-white shadow-lg rounded-[40px] p-4 flex-1 h-[280px] relative">
-                        <h2 className="text-xl font-semibold mb-2">18</h2>
-                        <p>Tarefas</p>
-                        <p>Total de tarefas cadastradas</p>
+                        <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">18</h2>
+                        <p className="font-bold">Tarefas</p>
+                        <p className="">Total de tarefas cadastradas</p>
                         <img 
                             src="/dashboardimg6.svg" 
                             alt="Dashboard Image 6" 
@@ -60,9 +60,9 @@ const Container: React.FC = () => {
                         />
                     </div>
                     <div className="bg-white shadow-lg rounded-[40px] p-4 flex-1 h-[280px] relative">
-                        <h2 className="text-xl font-semibold mb-2">11</h2>
-                        <p>Tarefas finalizadas</p>
-                        <p>Lista de tarefas finalizadas</p>
+                        <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">11</h2>
+                        <p className="font-bold">Tarefas finalizadas</p>
+                        <p className="">Lista de tarefas finalizadas</p>
                         <img 
                             src="/dashboardimg5.svg" 
                             alt="Dashboard Image 6" 
@@ -70,9 +70,9 @@ const Container: React.FC = () => {
                         />
                     </div>
                     <div className="bg-white shadow-lg rounded-[40px] p-4 flex-1 h-[280px] relative">
-                        <h2 className="text-xl font-semibold mb-2">7</h2>
-                        <p>Tarefas em andamento</p>
-                        <p>Lista de tarefas em andamento</p>
+                        <h2 className="text-4xl font-bold mb-2 text-customBlue font-nunito">7</h2>
+                        <p className="font-bold">Tarefas em andamento</p>
+                        <p className="">Lista de tarefas em andamento</p>
                         <img 
                             src="/dashboardimg4.svg" 
                             alt="Dashboard Image 4" 
