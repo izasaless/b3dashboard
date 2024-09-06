@@ -1,32 +1,45 @@
-// src/context/AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { login as loginService, logout as logoutService } from '../services/authService';
 
 interface AuthContextProps {
   isAuthenticated: boolean;
-  login: (username: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const login = (username: string, password: string) => {
-    // Definindo usuário e senha válidos
-    const validUsername = 'admin';
-    const validPassword = 'admin';
-
-    if (username === validUsername && password === validPassword) {
+  useEffect(() => {
+ 
+    const token = localStorage.getItem('token');
+    if (token) {
       setIsAuthenticated(true);
-      return true;
-    } else {
+    }
+  }, []);
+
+  const login = async (username: string, password: string): Promise<boolean> => {
+    try {
+      const token = await loginService(username, password);
+      if (token) {
+        localStorage.setItem('token', token); 
+        setIsAuthenticated(true);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
       return false;
     }
   };
 
   const logout = () => {
+    localStorage.removeItem('token'); 
     setIsAuthenticated(false);
+    logoutService(); 
   };
 
   return (

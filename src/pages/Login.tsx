@@ -1,18 +1,17 @@
 // src/pages/Login.tsx
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../services/authService'; // Importa o serviço de autenticação
 import '../index.css';
 
 export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        const success = login(username, password);
+        const success = await login(username, password);
         if (success) {
             navigate('/home');
         } else {
