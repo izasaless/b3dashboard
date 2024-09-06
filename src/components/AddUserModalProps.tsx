@@ -1,205 +1,150 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface AddUserModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (newUser: User) => void;
+    isOpen: boolean;
+    onClose: () => void;
+    onSave: (user: User) => void; // Propriedade obrigatória
 }
 
 interface User {
-  userType: string;
-  name: string;
-  email: string;
-  phone: string;
-  area: string;
-  status: string;
+    userType: string;
+    name: string;
+    email: string;
+    phone: string;
+    cpf: string;
+    status: string;
 }
 
-const getTitle = () => {
-  switch (location.pathname) {
-      case '/usuarios':
-          return 'Usuários';
-      case '/clientes':
-          return 'Clientes';
-      case '/funcionarios':
-          return 'Funcionários';
-      case '/todas':
-          return 'Tarefas';
-      case '/finalizadas':
-          return 'Tarefas - Finalizadas';
-      case '/em-andamento':
-          return 'Tarefas - Em Andamento';
-      case '/cargos':
-          return 'Cargos';
-      default:
-          return 'Usuários'; // Título padrão
-  }
-};
+const AddUserModalProps: React.FC<AddUserModalProps> = ({ isOpen, onClose, onSave }) => {
+    const [user, setUser] = useState<User>({
+        userType: '',
+        name: '',
+        email: '',
+        phone: '',
+        cpf: '',
+        status: 'Ativo'
+    });
 
-const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onSave }) => {
-  const [userType, setUserType] = useState<string>(''); // Funcionário ou Usuário
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-  const [area, setArea] = useState<string>('');
-  const [status, setStatus] = useState<string>('');
-
-  const handleSave = () => {
-    const newUser: User = {
-      userType,
-      name,
-      email,
-      phone,
-      area,
-      status
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setUser(prevUser => ({
+            ...prevUser,
+            [name]: value
+        }));
     };
-    onSave(newUser);
-    onClose(); // Fecha o modal após salvar
-  };
 
-  if (!isOpen) return null;
+    const handleSave = () => {
+        onSave(user); // Chama a função onSave passando o novo usuário
+    };
 
-  return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-2xl">
-        <h2 className="text-2xl font-semibold pb-4">Cadastro de {getTitle()}</h2>
-        
-        {/* Tipo de Usuário */}
-        <div className="mb-4">
-          <select
-            className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-            value={userType}
-            onChange={(e) => setUserType(e.target.value)}
-          >
-            <option value="">Selecione...</option>
-            <option value="Funcionário">Funcionário</option>
-            <option value="Usuário">Usuário</option>
-          </select>
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
+                <h2 className="text-xl font-bold mb-4">Adicionar Usuário</h2>
+
+                <div className="mb-4">
+                    <label htmlFor="name" className="block text-gray-700">Nome</label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        value={user.name}
+                        onChange={handleInputChange}
+                        placeholder="Nome"
+                        className="w-full p-2 border border-customBlue rounded-3xl"
+                    />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label htmlFor="userType" className="block text-gray-700">Tipo de Usuário</label>
+                        <select
+                            id="userType"
+                            name="userType"
+                            value={user.userType}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border border-customBlue rounded-3xl"
+                        >
+                            <option value="">Selecione</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Usuário">Usuário</option>
+                            <option value="Convidado">Convidado</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="email" className="block text-gray-700">Email</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={user.email}
+                            onChange={handleInputChange}
+                            placeholder="Email"
+                            className="w-full p-2 border border-customBlue rounded-3xl"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="phone" className="block text-gray-700">Telefone</label>
+                        <input
+                            id="phone"
+                            name="phone"
+                            type="text"
+                            value={user.phone}
+                            onChange={handleInputChange}
+                            placeholder="Telefone"
+                            className="w-full p-2 border border-customBlue rounded-3xl"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="cpf" className="block text-gray-700">CPF</label>
+                        <input
+                            id="cpf"
+                            name="cpf"
+                            type="text"
+                            value={user.cpf}
+                            onChange={handleInputChange}
+                            placeholder="CPF"
+                            className="w-full p-2 border border-customBlue rounded-3xl"
+                        />
+                    </div>
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="status" className="block text-gray-700">Status</label>
+                    <select
+                        id="status"
+                        name="status"
+                        value={user.status}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border border-customBlue rounded-3xl"
+                    >
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+
+                <div className="flex justify-between items-center">
+                    <button
+                        onClick={handleSave}
+                        className="bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-custombluedark focus:outline-none"
+                    >
+                        Salvar
+                    </button>
+                    <button
+                        onClick={onClose}
+                        className="ml-4 px-4 py-2 rounded-lg hover:bg-gray-100 focus:outline-none"
+                    >
+                        Cancelar
+                    </button>
+                </div>
+            </div>
         </div>
-
-        {/* Formulário em duas colunas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="mb-4">
-            <input
-              placeholder='Nome'
-              type="text"
-              className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-4">
-            <input
-              placeholder='Email'
-              type="email"
-              className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-4">
-            <input
-              placeholder='Telefone'
-              type="tel"
-              className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-
-          {/* CPF */}
-          <div className="mb-4">
-            <input
-              placeholder='CPF'
-              type="text"
-              className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-
-          {/* Área de Atuação */}
-          <div className="mb-4">
-            <input
-              placeholder='Área de atuação'
-              type="text"
-              className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-              value={area}
-              onChange={(e) => setArea(e.target.value)}
-            />
-          </div>
-
-          {/* Status */}
-          <div className="mb-4 col-span-1">
-            <select
-              className="mt-1 block w-full border border-customBlue rounded-3xl shadow-sm py-2 px-3 text-customBlue focus:outline-none focus:ring-customBlue focus:border-customBlue sm:text-sm"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <option value="">Status</option>
-              <option value="Ativo">Ativo</option>
-              <option value="Inativo">Inativo</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Linha separadora */}
-       
-
-        {/* Botões de ação */}
-        <div className="flex justify-start space-x-2">
-          <button
-            onClick={onClose}
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={handleSave}
-            className="bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-custombluedark focus:outline-none focus:ring-2 focus:ring-customBlue"
-          >
-            Salvar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export const Usuarios: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const handleAddUserClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleSaveUser = (newUser: User) => {
-    console.log(newUser);
-    // Aqui você pode adicionar a lógica para salvar o novo usuário
-  };
-
-  return (
-    <>
-      <button
-        onClick={handleAddUserClick}
-        className="bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-custombluedark focus:outline-none focus:ring-2 focus:ring-customBlue"
-      >
-        Adicionar Usuário
-      </button>
-
-      <AddUserModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onSave={handleSaveUser}
-      />
-    </>
-  );
-};
-
-export default AddUserModal;
+export default AddUserModalProps;

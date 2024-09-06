@@ -1,5 +1,14 @@
-import { AppRoutes } from "./routes";
+// src/App.tsx
 
-export function App() {
-  return <AppRoutes />
-}
+import { AppRoutes } from './routes';
+import { AuthProvider } from './context/AuthContext';
+
+const App = () => {
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  );
+};
+
+export default App;
