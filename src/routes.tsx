@@ -6,6 +6,7 @@ import { Usuarios } from './pages/Usuarios';
 import { Clientes } from './pages/Clientes';
 import { Funcionarios } from './pages/Funcionarios';
 import { PrivateRoute } from './components/PrivateRoute';
+import { AuthProvider } from './context/AuthContext';
 
 export const AppRoutes = () => {
   return (

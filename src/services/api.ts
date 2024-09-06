@@ -1,7 +1,7 @@
 
 export const login = async (username: string, password: string): Promise<string | null> => {
-    const validUsername = 'admin';
-    const validPassword = 'admin';
+    const validUsername = '123';
+    const validPassword = '123';
   
  
     if (username === validUsername && password === validPassword) {

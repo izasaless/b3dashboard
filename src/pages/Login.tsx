@@ -1,7 +1,8 @@
 // src/pages/Login.tsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../services/authService'; // Importa o serviço de autenticação
+import { login } from '../services/authService';
 import '../index.css';
 
 export const Login = () => {
@@ -11,10 +12,14 @@ export const Login = () => {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        const success = await login(username, password);
-        if (success) {
+        console.log('Login attempt with username:', username); // Adicione este log
+        const token = await login(username, password);
+        if (token) {
+            console.log('Login successful, token:', token); // Adicione este log
+            localStorage.setItem('token', token);
             navigate('/home');
         } else {
+            console.log('Login failed'); // Adicione este log
             alert('Usuário ou senha incorretos!');
         }
     };

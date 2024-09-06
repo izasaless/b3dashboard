@@ -13,8 +13,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
- 
     const token = localStorage.getItem('token');
+    console.log('Token read from localStorage:', token); // Adicione este log
     if (token) {
       setIsAuthenticated(true);
     }
@@ -24,7 +24,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const token = await loginService(username, password);
       if (token) {
-        localStorage.setItem('token', token); 
+        localStorage.setItem('token', token);
+        console.log('Token stored:', token); // Adicione este log
         setIsAuthenticated(true);
         return true;
       } else {
@@ -37,9 +38,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token'); 
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
-    logoutService(); 
+    logoutService();
   };
 
   return (
