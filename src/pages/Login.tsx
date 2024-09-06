@@ -1,12 +1,23 @@
+// src/pages/Login.tsx
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../index.css';
 
 export const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        navigate('/home');
+        const success = login(username, password);
+        if (success) {
+            navigate('/home');
+        } else {
+            alert('Usuário ou senha incorretos!');
+        }
     };
 
     return (
@@ -73,6 +84,8 @@ export const Login = () => {
                                         type="text"
                                         autoComplete="username"
                                         required
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
                                         className="font-nunito pl-10 block w-full rounded-md border-0 py-1.5 text-customBlue shadow-sm ring-1 ring-inset ring-customBlue placeholder:text-customBlue focus:ring-2 focus:ring-inset focus:ring-customBlue sm:text-sm sm:leading-6"
                                         placeholder="Usuário"
                                     />
@@ -91,6 +104,8 @@ export const Login = () => {
                                         type="password"
                                         autoComplete="current-password"
                                         required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         className="font-nunito pl-10 block w-full rounded-md border-0 py-1.5 text-customBlue shadow-sm ring-1 ring-inset ring-customBlue placeholder:text-customBlue focus:ring-2 focus:ring-inset focus:ring-customBlue sm:text-sm sm:leading-6"
                                         placeholder="Senha"
                                     />
